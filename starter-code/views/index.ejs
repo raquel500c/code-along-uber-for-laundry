@@ -3,15 +3,15 @@
 
 <% if (isUserLoggedIn) { %>
   <p> Hello, <%= currentUserInfo.name %>. </p>
+<img src="<%= currentUserInfo.avatar %>"/>
 <% } %>
-
 <nav>
   <ul>
     <% if (!isUserLoggedIn) { %>
       <li> <a href="/signup"> Sign Up </a> </li>
       <li> <a href="/login"> Log In </a> </li>
     <% } else { %>
-      <li> <a href="/launderers"> Find a Launderer </a> </li>
+      <li> <a href="/launderers"> Find a Laundererrrrrr </a> </li>
       <li> <a href="/dashboard"> See Dashboard </a> </li>
       <li> <a href="/logout"> Log Out </a> </li>
     <% } %>
