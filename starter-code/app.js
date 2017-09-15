@@ -9,11 +9,17 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
+if (process.env.NODE_ENV === "development") {
+  require('dotenv').config()
+}
+
+
 const index = require('./routes/index');
 const users = require('./routes/users');
 const authRoutes = require('./routes/auth');
+const laundryRoutes = require('./routes/laundry')
 
-mongoose.connect('mongodb://localhost/uberlaundry');
+mongoose.connect(process.env.MONGO_URI);
 const app = express();
 
 // view engine setup
@@ -27,15 +33,19 @@ app.locals.title = 'Uber for Laundry';
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
-  secret: 'never do your own laundry again',
+  secret: process.env.SESSION_SECRET,
   resave: true,
   saveUninitialized: true,
-  cookie: { maxAge: 60000 },
+  cookie: {
+    maxAge: 60000
+  },
   store: new MongoStore({
     mongooseConnection: mongoose.connection,
     ttl: 24 * 60 * 60 // 1 day
