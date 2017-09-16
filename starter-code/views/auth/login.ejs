@@ -1,9 +1,7 @@
 <h2> Log In </h2>
 
 <% if (errorMessage) { %>
-  <p class="error-message">
-    <%= errorMessage %>
-  </p>
+  <p class="error-message"> <%= errorMessage %> </p>
 <% } %>
 
 <form action="/login" method="post">
@@ -24,7 +22,5 @@
 
 <p>
   Don't have an account?
-  <a href="/signup">
-    Create an account.
-  </a>
+  <a href="/signup"> Create an account. </a>
 </p>
