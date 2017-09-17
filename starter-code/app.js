@@ -18,7 +18,10 @@ const users = require('./routes/users');
 const authRoutes = require('./routes/auth');
 const laundryRoutes = require('./routes/laundry')
 
-mongoose.connect(process.env.MONGO_URI);
+mongoose.Promise = global.Promise; // suprime DeprecationWarning: Mongoose: mpromise --> https://github.com/Automattic/mongoose/issues/4951
+mongoose.connect(process.env.MONGO_URI,{useMongoClient:true})
+.then( () => console.log("Connected to db!"));
+
 const app = express();
 
 // view engine setup
